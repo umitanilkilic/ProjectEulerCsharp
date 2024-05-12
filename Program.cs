@@ -16,6 +16,10 @@ class Program
 
         foreach (Type item in classesInSolutionsNamespace)
         {
+            var problemIdField = item.GetField("ProblemID");
+            var answerField = item.GetField("Answer");
+
+
             ConstructorInfo? constructorInfo = item.GetConstructor(Type.EmptyTypes);
             if (constructorInfo != null)
             {
@@ -23,13 +27,19 @@ class Program
                 MethodInfo? methodInfo = item.GetMethod("Solve");
                 if (methodInfo != null)
                 {
-                    Question? result = (Question)methodInfo.Invoke(instance, null);
-                    var trueAnsw = GetAnswersFromJson(result.id);
-
-                    Console.Write("Problem ID: {0}, ", result?.id);
-                    if (!CheckAnswer(result?.answer, trueAnsw))
+                    methodInfo.Invoke(instance, null);
+                    var problemId = (int)(problemIdField?.GetValue(instance) ?? -1);
+                    if (problemId == -1)
                     {
-                        Console.WriteLine("Want: {0} Got: {1}", trueAnsw, result?.answer);
+                        continue;
+                    }
+                    var answer = (string)(answerField?.GetValue(instance) ?? "");
+                    var trueAnsw = GetAnswersFromJson(problemId);
+
+                    Console.Write("Problem ID: {0}, ", problemId);
+                    if (!CheckAnswer(answer, trueAnsw))
+                    {
+                        Console.WriteLine("Want: {0} Got: {1}", trueAnsw, answer);
                     }
                     else
                     {

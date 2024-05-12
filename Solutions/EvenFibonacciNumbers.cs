@@ -1,20 +1,18 @@
 namespace Solutions;
 
-class EvenFibonacciNumbers
+public class EvenFibonacciNumbers : ProblemSolverBase
 {
-  const int _problemID = 2;
-
-  Question _question = new Question() { id = _problemID };
-
-
-  public Question Solve()
+  public EvenFibonacciNumbers()
+  {
+    ProblemID = 2;
+  }
+  public override void Solve()
   {
     var fibNumbers = GetFibonacciNumbers(1, 2, 4000000).ToList();
-
     var sum = fibNumbers.Where(x => x % 2 == 0).Sum();
-    _question.answer = sum.ToString();
-    return _question;
+    Answer = sum.ToString();
   }
+
 
   static IEnumerable<int> GetFibonacciNumbers(int first, int second, int max)
   {
@@ -24,15 +22,10 @@ class EvenFibonacciNumbers
       {
         yield break;
       }
-
       yield return first;
-
       var tmp = first;
-
       first = second;
-
       second = second + tmp;
-
     }
   }
 }

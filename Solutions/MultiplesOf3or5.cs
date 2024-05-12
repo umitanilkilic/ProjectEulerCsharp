@@ -1,16 +1,16 @@
 namespace Solutions;
-class MultiplesOf3or5
+class MultiplesOf3or5 : ProblemSolverBase
 {
-  const int _problemID = 1;
 
-  Question _question = new Question() { id = _problemID };
+  public MultiplesOf3or5()
+  {
+    ProblemID = 1;
+  }
 
-
-  public Question Solve()
+  public override void Solve()
   {
     var numbers = new List<int>() { 3, 5 };
-    _question.answer = findSumOfMultipliersBelow(numbers, 1000).ToString();
-    return _question;
+    Answer = findSumOfMultipliersBelow(numbers, 1000).ToString();
   }
 
   static int findSumOfMultipliersBelow(List<int> numbers, int maxNumber)
