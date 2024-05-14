@@ -1,36 +1,18 @@
+using Utility;
+
 namespace Solutions;
 
 public class LargestPrimeFactor : ProblemSolverBase
 {
-  public LargestPrimeFactor()
-  {
-    ProblemID = 3;
-  }
-  public override void Solve()
-  {
-    Answer = GetLargestPrimeFactor(600851475143).ToString();
-  }
-
-  long GetLargestPrimeFactor(long number)
-  {
-    long largestPrime = 0;
-    long divisor = 2;
-
-    while (number != 1)
+    public LargestPrimeFactor()
     {
-      if (number % divisor == 0)
-      {
-        number = number / divisor;
-      }
-      else
-      {
-        divisor++;
-      }
-      if (divisor > largestPrime){
-        largestPrime = divisor;
-      }
+        ProblemID = 3;
     }
 
-    return largestPrime;
-  }
+    public override void Solve()
+    {
+        Answer = Prime.GetLargestPrimeFactor(600851475143).ToString();
+    }
+
+
 }
