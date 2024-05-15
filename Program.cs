@@ -2,7 +2,7 @@
 
 using System.Reflection;
 using Newtonsoft.Json;
-class Program
+static class Program
 {
     static void Main(string[] args)
     {
@@ -18,7 +18,6 @@ class Program
         {
             var problemIdField = item.GetProperty("ProblemID");
             var answerField = item.GetProperty("Answer");
-
 
             ConstructorInfo? constructorInfo = item.GetConstructor(Type.EmptyTypes);
             if (constructorInfo != null)
