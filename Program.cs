@@ -65,7 +65,7 @@ static class Program
 
     static string GetAnswersFromJson(int id)
     {
-        return answers?.questions?.FirstOrDefault(x => x.id == id)?.answer ?? "";
+        return answers?.questions?.First(x => x.id == id)?.answer ?? "";
     }
 
     static bool CheckAnswer(string? a, string? b)

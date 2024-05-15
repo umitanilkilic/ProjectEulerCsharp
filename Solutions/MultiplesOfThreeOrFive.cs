@@ -1,8 +1,8 @@
 namespace Solutions;
-class MultiplesOf3or5 : ProblemSolverBase
+class MultiplesOfThreeOrFive : ProblemSolverBase
 {
 
-  public MultiplesOf3or5()
+  public MultiplesOfThreeOrFive()
   {
     ProblemID = 1;
   }
