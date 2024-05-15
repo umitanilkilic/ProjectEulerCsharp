@@ -16,8 +16,8 @@ class Program
 
         foreach (Type item in classesInSolutionsNamespace)
         {
-            var problemIdField = item.GetField("ProblemID");
-            var answerField = item.GetField("Answer");
+            var problemIdField = item.GetProperty("ProblemID");
+            var answerField = item.GetProperty("Answer");
 
 
             ConstructorInfo? constructorInfo = item.GetConstructor(Type.EmptyTypes);

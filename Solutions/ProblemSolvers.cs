@@ -7,8 +7,8 @@ public interface IProblemSolver
 
 public abstract class ProblemSolverBase : IProblemSolver
 {
-    public int ProblemID;
-    public string? Answer;
+    public int ProblemID { get; set; }
+    public string? Answer { get; set; }
 
     public abstract void Solve();
 }
