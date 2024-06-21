@@ -2,6 +2,11 @@ namespace Utility;
 
 static class MathUtils
 {
+    public static int CalculateArithmeticSum(int numberOfTerms, int firstTerm, int stepSize)
+    {
+        return (numberOfTerms / 2) * (2*firstTerm + (numberOfTerms-1)*stepSize);
+    }
+    
     public static long GCD(long a, long b)
     {
         if (a == 0)
