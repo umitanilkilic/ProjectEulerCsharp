@@ -2,7 +2,8 @@
 
 using System.Reflection;
 using Newtonsoft.Json;
-class Program
+
+static class Program
 {
     static void Main(string[] args)
     {
@@ -12,13 +13,16 @@ class Program
 
     static void TestSolutions()
     {
-        Type[] classesInSolutionsNamespace = Assembly.GetExecutingAssembly().GetTypes().Where(x => x.Namespace == "Solutions" && x.IsClass).ToArray();
+        Type[] classesInSolutionsNamespace = Assembly
+            .GetExecutingAssembly()
+            .GetTypes()
+            .Where(x => x.Namespace == "Solutions" && x.IsClass)
+            .ToArray();
 
         foreach (Type item in classesInSolutionsNamespace)
         {
-            var problemIdField = item.GetField("ProblemID");
-            var answerField = item.GetField("Answer");
-
+            var problemIdField = item.GetProperty("ProblemID");
+            var answerField = item.GetProperty("Answer");
 
             ConstructorInfo? constructorInfo = item.GetConstructor(Type.EmptyTypes);
             if (constructorInfo != null)
@@ -36,24 +40,20 @@ class Program
                     var answer = (string)(answerField?.GetValue(instance) ?? "");
                     var trueAnsw = GetAnswersFromJson(problemId);
 
-                    Console.Write("Problem ID: {0}, ", problemId);
-                    if (!CheckAnswer(answer, trueAnsw))
-                    {
-                        Console.WriteLine("Want: {0} Got: {1}", trueAnsw, answer);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Passed");
-                    }
+                    var isCorrect = CheckAnswer(answer, trueAnsw);
 
+                    Console.WriteLine(
+                        "Problem ID: {0}, Result: {1}",
+                        problemId,
+                        isCorrect ? "Passed" : $"Want: {trueAnsw} Got: {answer}"
+                    );
                 }
             }
         }
     }
 
-
-
     static AnswerContainer? answers;
+
     static void ReadJsonFile()
     {
         string jsonFilePath = "answers.json";
@@ -63,17 +63,13 @@ class Program
         answers = JsonConvert.DeserializeObject<AnswerContainer>(json);
     }
 
-
-
     static string GetAnswersFromJson(int id)
     {
-        return answers?.questions?.FirstOrDefault(x => x.id == id)?.answer ?? "";
+        return answers?.questions?.First(x => x.id == id)?.answer ?? "";
     }
-
 
     static bool CheckAnswer(string? a, string? b)
     {
         return a != null && b != null && a.Equals(b);
     }
-
 }
