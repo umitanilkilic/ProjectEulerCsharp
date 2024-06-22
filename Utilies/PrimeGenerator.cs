@@ -47,7 +47,7 @@ static class Prime
     {
         lastPrimeNumber++;
 
-        for (long i = 2; i <= Math.Sqrt(lastPrimeNumber); i += 2)
+        for (long i = 2; i <= Math.Sqrt(lastPrimeNumber); i ++)
         {
             if (lastPrimeNumber % i == 0)
             {
@@ -60,13 +60,6 @@ static class Prime
 
     public static bool IsPrime(long number)
     {
-        if (number <= 1)
-            return false;
-        if (number == 2 || number == 3)
-            return true;
-        if (number % 2 == 0 || number % 3 == 0)
-            return false;
-            
         if (_primes.Contains(number))
         {
             return true;
@@ -75,6 +68,21 @@ static class Prime
         if (_primes[_primes.Count - 1] > number)
         {
             return false;
+        }
+
+        if (number <= 1)
+            return false;
+        if (number == 2 || number == 3)
+            return true;
+        if (number % 2 == 0 || number % 3 == 0)
+            return false;
+
+        // Check for primes only up to the square root of the number
+        long limit = (long)Math.Sqrt(number);
+        for (long i = 5; i <= limit; i += 6)
+        {
+            if (number % i == 0 || number % (i + 2) == 0)
+                return false;
         }
 
         CalculateNext();
