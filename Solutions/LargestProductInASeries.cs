@@ -15,10 +15,10 @@ public class LargestProductInASeries : ProblemSolverBase
     }
     public override void Solve()
     {
-        Answer = SlidingWindow(number, 13).ToString();
+        Answer = SlideAndProduct(number, 13).ToString();
     }
 
-    public long SlidingWindow(string s, int windowSize)
+    public long SlideAndProduct(string s, int windowSize)
     {
         long maxProduct = 0;
 
